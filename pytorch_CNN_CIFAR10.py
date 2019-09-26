@@ -8,21 +8,14 @@ Original file is located at
 """
 
 use_cuda = True
-
 import torch
-
 import torch.nn as nn
-
 import torch.nn.functional as F
-
 import torchvision.datasets as dsets
-
 import torchvision.transforms as transforms
-
 from torch.autograd import Variable
 
 input_size = (3,32,32)
-
 number_of_filters1 = 16
 filter_size1 = 3
 number_of_filters2 = 128
@@ -78,7 +71,6 @@ net = Net(input_size, hidden_size, num_classes)
 criterian = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(net.parameters(), lr = learning_rate)
 
-# Commented out IPython magic to ensure Python compatibility.
 for epoch in range(num_epochs):
   for i, (images, labels) in enumerate(train_loader):    
     images = Variable(images)
@@ -92,14 +84,14 @@ for epoch in range(num_epochs):
           print('Epoch [%d/%d], Step [%d/%d],Loss: %.4f'
 #                 %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size,loss.data))
 
-correct = 0
-total = 0
+a = 0
+b = 0
 for images, labels in test_loader:
     images = Variable(images.view(-1, 32*32*3))    
     outputs = net(images)
     _, predicted = torch.max(outputs.data, 1) 
-    total += labels.size(0)               
-    correct += (predicted == labels).sum()
+    b += labels.size(0)               
+    a += (predicted == labels).sum()
     
-print('Accuracy of the network on the 10K test images: %d %%' % (100 * correct / total))
+print('Accuracy on test images: %d %%' % (100 * a/ b))
 
