@@ -29,22 +29,11 @@ batch_size = 100
 learning_rate = 0.001
 nn_input= 900
 
-train_dataset = dsets.CIFAR10(root='./data',
-                           train=True,
-                           transform= transforms.ToTensor(),
-                           download=True)
+train_dataset = dsets.CIFAR10(root='./data', train=True, transform= transforms.ToTensor(), download=True)
+test_dataset = dsets.CIFAR10(root='./data', train=False, transform= transforms.ToTensor())
 
-test_dataset = dsets.CIFAR10(root='./data',
-                           train=False,
-                           transform= transforms.ToTensor())
-
-train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
-                                          batch_size=batch_size,
-                                          shuffle=True)
-
-test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
-                                          batch_size=batch_size,
-                                          shuffle=False)
+train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
+test_loader = torch.utils.data.DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
 
 class Net(nn.Module):
   def __init__(self, input_size, hidden_size, num_classes):
