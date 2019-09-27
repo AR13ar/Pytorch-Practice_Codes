@@ -76,7 +76,7 @@ for epoch in range(num_epochs):
 a = 0
 b = 0
 for images, labels in test_loader:
-    images = Variable(images.view(-1, 32*32*3))    
+    images = Variable(images)    
     outputs = net(images)
     _, predicted = torch.max(outputs.data, 1) 
     b += labels.size(0)               
